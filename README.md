@@ -9,11 +9,17 @@ os permissivos liberem uma nova partida.
 
 Grupo: Lucas Dias Borges · Marcus Prado Silva · Marlon Bento Azevedo
 
+**▶ Abrir o simulador:** <https://marcusprado02.github.io/TP_01_Sistemas-_de_Automa-o_Industrial_PUC_MG_02_2026/>
+
+**📘 Tutorial completo de uso:** [TUTORIAL.md](TUTORIAL.md)
+
+![Tela principal](docs/img/01-sala-operando.jpg)
+
 ## Como rodar
 
 Não há instalação nem build: é HTML, CSS e JavaScript puro.
 
-- **Online:** GitHub Pages deste repositório (Settings → Pages → branch `main`, pasta raiz).
+- **Online:** <https://marcusprado02.github.io/TP_01_Sistemas-_de_Automa-o_Industrial_PUC_MG_02_2026/>
 - **Local:** os módulos ES não carregam via `file://`, então sirva a pasta:
 
 ```bash
