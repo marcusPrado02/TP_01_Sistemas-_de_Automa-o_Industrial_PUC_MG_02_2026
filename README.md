@@ -47,6 +47,8 @@ Fluxo por cenário (≈ 45 s): **tecla do cenário → trip → purga (30 s) →
 | `S` | Fonte de dados: **Dinâmica** ↔ **Sliders** |
 | `T` | Tendências e registro de alarmes |
 | `P` | Pausa |
+| `G` | Tour guiado pela interface |
+| `D` | Narrador "O que está acontecendo?" |
 
 **Layouts**
 
@@ -108,6 +110,7 @@ js/plant.js           modelo dinâmico didático da caldeira
 js/pid.js             controlador PI com anti-windup
 js/sis.js             intertravamentos e máquina de estados do BMS
 js/simulator.js       junta planta + malhas + SIS (sem DOM)
+js/teaching.js        narrador, dicas e passos do tour (sem DOM)
 js/ui/                sinótico SVG e painéis
 tests/                testes da lógica (node --test)
 ```

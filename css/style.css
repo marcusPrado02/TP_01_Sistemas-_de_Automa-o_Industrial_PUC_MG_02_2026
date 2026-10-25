@@ -40,7 +40,7 @@ body {
   color: var(--text);
   font: 14px/1.35 var(--sans);
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
   overflow: hidden;
 }
 
@@ -460,6 +460,91 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--ctl); outli
 
 .psv.open circle { stroke: var(--amber); stroke-width: 5; }
 
+/* ---------- recursos didáticos ---------- */
+
+.learn-btn { color: var(--ctl); border-color: #2b4677; }
+.icon-btn.active { color: var(--text); }
+
+.narrator {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  padding: 8px 16px;
+  background: var(--panel-2);
+  border-top: 1px solid var(--line);
+  border-left: 4px solid var(--muted);
+  min-height: 52px;
+}
+.narrator-off .narrator { display: none; }
+.nr-label { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); max-width: 90px; line-height: 1.2; }
+.nr-body { font-size: 15px; line-height: 1.35; }
+.nr-body b { margin-right: 8px; }
+.nr-hint { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); white-space: nowrap; }
+.nr-hint .kbd { font-size: 13px; color: var(--value); border-color: var(--muted); }
+.narrator[data-tone='trip'] { border-left-color: var(--trip); }
+.narrator[data-tone='trip'] .nr-body b { color: var(--trip); }
+.narrator[data-tone='warn'] { border-left-color: var(--amber); }
+.narrator[data-tone='warn'] .nr-body b { color: var(--amber); }
+.narrator[data-tone='ok'] { border-left-color: var(--ok); }
+.narrator[data-tone='ok'] .nr-body b { color: var(--ok); }
+.narrator[data-tone='ok'] .nr-hint .kbd { background: var(--ok); color: #0c1a10; border-color: var(--ok); }
+
+.tip {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 20;
+  width: 290px;
+  padding: 10px 12px;
+  background: #101316;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgb(0 0 0 / 0.5);
+  pointer-events: none;
+  font-size: 13px;
+}
+.tip[hidden], .touring .tip { display: none; }
+.tip small { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
+.tip b { display: block; font: 800 17px var(--mono); margin: 2px 0 6px; }
+.tip p { margin: 4px 0; }
+.tip .tip-why { color: var(--muted); }
+.tip .tip-lim { color: var(--trip); font-family: var(--mono); font-size: 12px; }
+.tip .tip-live { color: var(--value); font-family: var(--mono); border-top: 1px solid var(--line); padding-top: 6px; }
+#synoptic [id^='tx-'], #synoptic [id^='sw-'], #synoptic [id^='ctl-'], #synoptic [id^='valve-'],
+#synoptic #pump-P-201, #synoptic #damper, #synoptic #drum, #synoptic #turbine, #synoptic #psv-PSV-230, #synoptic #sis-block { cursor: help; }
+
+.tour-spot {
+  position: fixed;
+  z-index: 30;
+  border-radius: 10px;
+  border: 2px solid var(--ctl);
+  box-shadow: 0 0 0 9999px rgb(8 10 12 / 0.62);
+  pointer-events: none;
+  transition: left 0.25s, top 0.25s, width 0.25s, height 0.25s;
+}
+.tour-spot.full { inset: 0; width: auto !important; height: auto !important; border: 0; border-radius: 0; box-shadow: none; background: rgb(8 10 12 / 0.62); }
+.tour-spot[hidden], .tour-card[hidden] { display: none; }
+.tour-card {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 31;
+  width: min(380px, calc(100vw - 20px));
+  padding: 14px 16px;
+  background: var(--panel);
+  border: 1px solid var(--ctl);
+  border-radius: 10px;
+  box-shadow: 0 16px 40px rgb(0 0 0 / 0.55);
+}
+.tour-card header { display: flex; justify-content: space-between; align-items: center; }
+.tour-count { font: 600 12px var(--mono); color: var(--ctl); }
+.tour-close { border: 0; background: transparent; color: var(--muted); padding: 2px 6px; }
+.tour-card h3 { margin: 6px 0; font-size: 17px; }
+.tour-card p { margin: 0 0 12px; color: var(--text); font-size: 14px; line-height: 1.45; }
+.tour-card footer { display: flex; justify-content: space-between; gap: 8px; }
+.tour-card .primary { background: var(--ctl); border-color: var(--ctl); color: #fff; font-weight: 700; }
+
 /* ---------- ajuda ---------- */
 
 dialog {
@@ -499,6 +584,8 @@ dialog a { color: var(--ctl); }
 /* ---------- telas menores ---------- */
 
 @media (max-width: 1280px) {
+  .toolbar .icon-btn .kbd { display: none; }
+  .nr-body { font-size: 14px; }
   .sis-view { grid-template-columns: 140px minmax(260px, 2fr) minmax(150px, 1.2fr) 110px minmax(180px, 1.4fr) 130px; gap: 10px; padding: 8px 10px; }
   .trip-steps li { font-size: 12px; padding: 5px 6px; }
   .brand p { display: none; }

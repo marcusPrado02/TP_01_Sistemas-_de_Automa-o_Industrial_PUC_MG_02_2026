@@ -4,6 +4,7 @@ import { Simulator } from './simulator.js';
 import { STATE } from './sis.js';
 import { Synoptic } from './ui/synoptic.js';
 import { AlarmLog, Faceplates, MatrixPanel, ScenarioPanel, SisView, SliderPanel, TrendChart } from './ui/panels.js';
+import { Narrator, Tooltips, Tour } from './ui/teach.js';
 
 const STEP = 0.1;          // s de simulação por passo
 const LAYOUTS = ['sala', 'matriz', 'palco'];
@@ -21,7 +22,9 @@ const views = [
   new MatrixPanel($('matrix'), sim),
   new TrendChart($('trends'), sim),
   new AlarmLog($('alarmLog'), sim),
+  new Tooltips($('synoptic'), sim),
 ];
+const narrator = new Narrator($('narrator'), sim);
 
 // ---------- preferências locais (só conveniência; a página funciona sem elas) ----------
 
@@ -51,14 +54,32 @@ function setSource(source) {
 const currentLayout = () => LAYOUTS.find((l) => document.body.classList.contains(`layout-${l}`));
 const toggleDrawer = () => document.body.classList.toggle('drawer-open');
 
+function setNarrator(on) {
+  document.body.classList.toggle('narrator-off', !on);
+  $('narratorBtn').classList.toggle('active', on);
+  store.set('narrator', on ? '1' : '0');
+}
+const toggleNarrator = () => setNarrator(document.body.classList.contains('narrator-off'));
+
+const tour = new Tour({
+  onStart: () => {
+    setLayout('sala');
+    setNarrator(true);
+    document.body.classList.remove('drawer-open');
+  },
+});
+
 for (const b of document.querySelectorAll('[data-layout]')) b.addEventListener('click', () => setLayout(b.dataset.layout));
 for (const b of document.querySelectorAll('[data-source]')) b.addEventListener('click', () => setSource(b.dataset.source));
 $('drawerBtn').addEventListener('click', toggleDrawer);
 $('helpBtn').addEventListener('click', () => $('helpDialog').showModal());
 $('ackBtn').addEventListener('click', () => sim.acknowledgeAll());
+$('tourBtn').addEventListener('click', () => tour.start());
+$('narratorBtn').addEventListener('click', toggleNarrator);
 
 setLayout(LAYOUTS.includes(store.get('layout')) ? store.get('layout') : 'sala');
 setSource('dynamic');
+setNarrator(store.get('narrator', '1') === '1');
 
 // ---------- teclado ----------
 
@@ -69,6 +90,10 @@ document.addEventListener('keydown', (ev) => {
   const target = ev.target;
   if (target instanceof HTMLInputElement && target.type === 'number') return;
   const k = ev.key.toLowerCase();
+  if (tour.handleKey(k)) {
+    ev.preventDefault();
+    return;
+  }
   if (/^[0-6]$/.test(k)) sim.applyScenario(k);
   else if (k === 'e') sim.applyScenario('E');
   else if (k === 'r') sim.requestStart();
@@ -77,6 +102,8 @@ document.addEventListener('keydown', (ev) => {
   else if (k === 's') setSource(sim.source === 'dynamic' ? 'manual' : 'dynamic');
   else if (k === 't') toggleDrawer();
   else if (k === 'p') paused = !paused;
+  else if (k === 'g') tour.start();
+  else if (k === 'd') toggleNarrator();
   else if (k === '?') $('helpDialog').showModal();
   else return;
   ev.preventDefault();
@@ -89,6 +116,7 @@ const clock = $('clock');
 
 function render() {
   for (const v of views) v.update(sim);
+  narrator.update(sim, { paused });
   const s = sim.bms.state;
   badge.textContent = paused ? 'PAUSADO' : s === STATE.READY ? 'AGUARDANDO RESET' : s;
   badge.dataset.state = paused ? 'PAUSE' : s;

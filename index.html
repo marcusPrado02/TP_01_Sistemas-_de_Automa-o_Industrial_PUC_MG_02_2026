@@ -28,6 +28,8 @@
         <button data-source="dynamic" title="Simulação dinâmica (S)">Dinâmica</button>
         <button data-source="manual" title="Entrada manual por sliders (S)">Sliders</button>
       </div>
+      <button class="icon-btn learn-btn" id="tourBtn" title="Tour guiado pela interface (G)">Aprender <span class="kbd">G</span></button>
+      <button class="icon-btn" id="narratorBtn" title="Mostrar/esconder o narrador (D)">Narrador <span class="kbd">D</span></button>
       <button class="icon-btn" id="drawerBtn" title="Tendências e alarmes (T)">Tendências <span class="kbd">T</span></button>
       <button class="icon-btn" id="helpBtn" title="Atalhos (?)">?</button>
     </nav>
@@ -70,6 +72,8 @@
     </section>
   </main>
 
+  <section class="narrator" id="narrator" aria-live="polite" aria-label="Explicação do que está acontecendo"></section>
+
   <footer class="sis-strip" id="sisStrip" aria-label="SIS / BMS"></footer>
 
   <dialog id="helpDialog">
@@ -84,7 +88,10 @@
       <dt>S</dt><dd>Alterna fonte: Dinâmica ↔ Sliders</dd>
       <dt>T</dt><dd>Tendências e alarmes</dd>
       <dt>P</dt><dd>Pausa a simulação</dd>
+      <dt>G</dt><dd>Tour guiado pela interface (← → navega, Esc sai)</dd>
+      <dt>D</dt><dd>Mostra/esconde o narrador "O que está acontecendo?"</dd>
     </dl>
+    <p class="muted">Passe o mouse sobre qualquer instrumento, válvula ou equipamento do sinótico para ver a explicação.</p>
     <p class="muted">Fluxo de demonstração: cenário → trip → purga → <b>0</b> → <b>R</b>.</p>
     <p class="muted"><a href="https://github.com/marcusPrado02/TP_01_Sistemas-_de_Automa-o_Industrial_PUC_MG_02_2026/blob/main/TUTORIAL.md" target="_blank" rel="noopener">Tutorial completo de uso ↗</a></p>
     <form method="dialog"><button class="mini-btn">Fechar</button></form>

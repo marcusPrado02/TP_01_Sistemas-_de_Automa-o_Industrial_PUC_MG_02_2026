@@ -10,6 +10,7 @@ tela mostra, como operar as malhas, como provocar cada falha e como conduzir a d
 ## Sumário
 
 1. [Como abrir](#1-como-abrir)
+   - [Aprendendo dentro do simulador](#aprendendo-dentro-do-simulador)
 2. [Conhecendo a tela](#2-conhecendo-a-tela)
 3. [Lendo o sinótico](#3-lendo-o-sinótico)
 4. [Malhas de controle e faceplates](#4-malhas-de-controle-e-faceplates)
@@ -42,6 +43,20 @@ python3 -m http.server 8080
 > **Dica para o projetor:** use o navegador em tela cheia (`F11`). A interface foi pensada para 1366×768 ou
 > maior. Se as letras ficarem pequenas, dê zoom com `Ctrl` + `+`.
 
+### Aprendendo dentro do simulador
+
+A própria interface ensina a usá-la, com três recursos:
+
+| Recurso | Como abrir | O que faz |
+|---|---|---|
+| **Tour guiado** | Botão **Aprender** ou tecla `G` | 11 passos que destacam cada região da tela com um balão explicativo. Navegue com `←` `→` ou pelos botões; `Esc` sai. |
+| **Narrador "O que está acontecendo?"** | Ligado por padrão; botão **Narrador** ou tecla `D` | Faixa acima do rodapé que explica em tempo real o que a planta e o SIS estão fazendo, e indica a próxima tecla a apertar (ex.: "`0` remover a falha", "`R` RESET / partida"). |
+| **Dicas ao passar o mouse** | Passe o mouse sobre o sinótico | Cartão com o que é o instrumento ou equipamento, para que serve, seus limites e o valor atual. |
+
+O narrador acompanha todo o ciclo: explica a falha **antes** do trip ("a bomba P-201 parou… o nível cai — LT-201 =
+23,4 %; o LSLL-221 atua em 15 %"), narra cada um dos 5 passos do MFT, diz por que a purga existe e, depois dela,
+qual permissivo ainda falta para religar. Durante a apresentação, ele funciona como legenda para a turma.
+
 ---
 
 ## 2. Conhecendo a tela
@@ -52,9 +67,10 @@ A tela tem quatro regiões:
 
 | Região | O que tem |
 |---|---|
-| **Barra superior** | Título, **selo de estado do BMS** (OPERANDO, TRIP, PURGA, AGUARDANDO RESET, PARTIDA), seletor de **layout** (Sala / Matriz / Palco), seletor de **fonte de dados** (Dinâmica / Sliders), botão **Tendências** e **?** (atalhos). |
+| **Barra superior** | Título, **selo de estado do BMS** (OPERANDO, TRIP, PURGA, AGUARDANDO RESET, PARTIDA), seletor de **layout** (Sala / Matriz / Palco), seletor de **fonte de dados** (Dinâmica / Sliders), botões **Aprender** (tour), **Narrador**, **Tendências** e **?** (atalhos). |
 | **Painel esquerdo** | **Cenários** (botões de falha), **Entrada manual** (só no modo Sliders) e **Malhas de controle** (faceplates). |
 | **Centro** | **Sinótico P&ID** da planta, animado e com valores ao vivo. |
+| **Narrador** | Faixa "O que está acontecendo?" explicando o momento atual e a próxima ação (tecla `D` liga/desliga). |
 | **Rodapé** | **Faixa do SIS / BMS**: estado, os 5 passos da sequência de trip, primeira causa, purga, permissivos e botão **RESET / PARTIDA**. |
 
 ### Linguagem visual
@@ -375,6 +391,8 @@ partida.
 | `S` | Alterna Dinâmica ↔ Sliders |
 | `T` | Abre/fecha Tendências e alarmes |
 | `P` | Pausa / continua a simulação |
+| `G` | Tour guiado (`←` `→` navega, `Esc` sai) |
+| `D` | Liga/desliga o narrador |
 | `?` | Mostra os atalhos |
 
 Os atalhos funcionam em qualquer layout, exceto enquanto você digita num campo de setpoint.
@@ -384,7 +402,7 @@ Os atalhos funcionam em qualquer layout, exceto enquanto você digita num campo 
 ## 11. Roteiro sugerido para a apresentação
 
 Cerca de 5 minutos, encaixado no **slide 14 (Demonstração)**. Abra o simulador antes, em tela cheia, no layout
-**Sala**.
+**Sala**, com o **narrador ligado**: ele serve de legenda para a turma enquanto você fala.
 
 1. **A planta em regime (30 s).** Mostre o caminho da água até o gerador no sinótico e os três faceplates
    segurando nível, pressão e temperatura nos setpoints. Tudo cinza: "na IHM de alto desempenho, cor só quando há
@@ -417,6 +435,8 @@ Cerca de 5 minutos, encaixado no **slide 14 (Demonstração)**. Abra o simulador
 | No modo Sliders a FV-206 está fechada, mas FT-206 mostra vazão | Esperado: o slider é a medição, e o SIS fechou a válvula. |
 | A simulação parou | Você teclou `P` (pausa). O selo mostra PAUSADO; tecle `P` de novo. |
 | Gaveta de tendências cobrindo a planta | Tecle `T` para fechar. |
+| Faixa do narrador ocupando espaço | Tecle `D` para esconder (a escolha fica salva no navegador). |
+| Não sei o que fazer agora | Leia o narrador: ele sempre indica a próxima tecla. Ou faça o tour com `G`. |
 
 ---
 
