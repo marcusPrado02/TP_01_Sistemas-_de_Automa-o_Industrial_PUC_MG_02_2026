@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Caldeira Aquatubular · Mini-SCADA</title>
+  <meta name="description" content="Mini-SCADA didático do Sistema de Geração de Vapor com Caldeira Aquatubular: malhas de controle, SIS/BMS e Master Fuel Trip.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='6' y='4' width='20' height='24' rx='4' fill='%232b3138' stroke='%23ff4d4f' stroke-width='2'/%3E%3Cpath d='M16 22c-3 0-4-2-4-4 0-3 4-5 4-9 2 2 4 5 4 8 0 3-1 5-4 5z' fill='%23f5a524'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="layout-sala source-dynamic">
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <div>
+        <h1>Sistema de Geração de Vapor <span>com Caldeira Aquatubular</span></h1>
+        <p>Mini-SCADA didático · Sistemas de Automação Industrial · PUC Minas</p>
+      </div>
+    </div>
+    <div class="bms-badge" id="bmsBadge" aria-live="polite">OPERANDO</div>
+    <nav class="toolbar" aria-label="Visualização">
+      <div class="seg" role="group" aria-label="Layout">
+        <button data-layout="sala" title="Sala de controle (M)">Sala</button>
+        <button data-layout="matriz" title="Planta + matriz causa × efeito (M)">Matriz</button>
+        <button data-layout="palco" title="Planta em tela cheia (M)">Palco</button>
+      </div>
+      <div class="seg" role="group" aria-label="Fonte de dados">
+        <button data-source="dynamic" title="Simulação dinâmica (S)">Dinâmica</button>
+        <button data-source="manual" title="Entrada manual por sliders (S)">Sliders</button>
+      </div>
+      <button class="icon-btn" id="drawerBtn" title="Tendências e alarmes (T)">Tendências <span class="kbd">T</span></button>
+      <button class="icon-btn" id="helpBtn" title="Atalhos (?)">?</button>
+    </nav>
+    <time class="clock" id="clock"></time>
+  </header>
+
+  <main class="workspace">
+    <aside class="panel left-panel" aria-label="Operação">
+      <section class="block">
+        <h2>Cenários</h2>
+        <div class="scenario-grid" id="scenarios"></div>
+      </section>
+      <section class="block only-manual">
+        <h2>Entrada manual <small>transmissores</small></h2>
+        <div id="sliders" class="sliders"></div>
+      </section>
+      <section class="block">
+        <h2>Malhas de controle</h2>
+        <div id="faceplates" class="faceplates"></div>
+      </section>
+    </aside>
+
+    <section class="stage">
+      <div class="synoptic-wrap">
+        <svg id="synoptic" viewBox="0 0 1600 780" role="img" aria-label="Sinótico P&amp;ID da caldeira"></svg>
+      </div>
+      <section class="matrix-panel" id="matrix" aria-label="Matriz causa e efeito"></section>
+      <div class="stage-bar" id="stageBar"></div>
+      <div class="sis-overlay" id="sisOverlay"></div>
+      <aside class="drawer" id="drawer" aria-label="Tendências e alarmes">
+        <section class="block">
+          <h2>Tendências <small>últimos 2 min</small></h2>
+          <canvas id="trends" width="560" height="420"></canvas>
+        </section>
+        <section class="block grow">
+          <h2>Alarmes e eventos <button class="mini-btn" id="ackBtn">Reconhecer (A)</button></h2>
+          <ol class="alarm-log" id="alarmLog"></ol>
+        </section>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="sis-strip" id="sisStrip" aria-label="SIS / BMS"></footer>
+
+  <dialog id="helpDialog">
+    <h2>Atalhos de teclado</h2>
+    <dl class="keys">
+      <dt>0</dt><dd>Operação normal (remove a falha e libera HS-226)</dd>
+      <dt>1 – 6</dt><dd>Cenários de falha</dd>
+      <dt>E</dt><dd>Emergência HS-226 (alterna)</dd>
+      <dt>R</dt><dd>RESET / partida</dd>
+      <dt>A</dt><dd>Reconhecer alarmes</dd>
+      <dt>M</dt><dd>Alterna layout: Sala → Matriz → Palco</dd>
+      <dt>S</dt><dd>Alterna fonte: Dinâmica ↔ Sliders</dd>
+      <dt>T</dt><dd>Tendências e alarmes</dd>
+      <dt>P</dt><dd>Pausa a simulação</dd>
+    </dl>
+    <p class="muted">Fluxo de demonstração: cenário → trip → purga → <b>0</b> → <b>R</b>.</p>
+    <form method="dialog"><button class="mini-btn">Fechar</button></form>
+  </dialog>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
